@@ -1,9 +1,9 @@
-from rest_framework import routers
+from rest_framework.routers import DefaultRouter
 from rental.api_views import FriendViewset, BelongingViewset, BorrowedViewSet
 from rest_framework_extensions.routers import NestedRouterMixin
 
 
-class NestedDefaultRouter(NestedRouterMixin, routers.DefaultRouter):
+class NestedDefaultRouter(NestedRouterMixin, DefaultRouter):
     pass
 
 

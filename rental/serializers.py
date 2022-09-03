@@ -4,7 +4,7 @@ from rest_framework.serializers import ModelSerializer, CurrentUserDefault, Hidd
 
 class FriendSerializer(ModelSerializer):
     owner = HiddenField(default=CurrentUserDefault())
-    ann_overdue = BooleanField(source="_ann_overdue")
+    ann_overdue = BooleanField(source="_ann_overdue", read_only=True)
 
     class Meta:
         model = Friend

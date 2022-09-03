@@ -1,4 +1,7 @@
 from django.db import models
+import pendulum
+
+from rental.managers import FriendQuerySet
 
 
 class OwnedModel(models.Model):
@@ -10,6 +13,16 @@ class OwnedModel(models.Model):
 
 class Friend(OwnedModel):
     name = models.CharField(max_length=100)
+    objects = FriendQuerySet.as_manager()
+
+    @property
+    def has_overdue(self):
+        if hasattr(self, '_ann_overdue'):
+            return self._ann_overdue
+        return self.borrowed_set.filter(
+            returned__isnull=True,
+            when=pendulum.now().subtract(months=2)
+        ).exists()
 
 
 class Belonging(OwnedModel):

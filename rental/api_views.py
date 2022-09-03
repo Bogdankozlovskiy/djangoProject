@@ -5,7 +5,7 @@ from rental.permissions import IsOwner
 
 
 class FriendViewset(viewsets.ModelViewSet):
-    queryset = Friend.objects.all()
+    queryset = Friend.objects.with_overdue()
     serializer_class = FriendSerializer
     permission_classes = [IsOwner]
 

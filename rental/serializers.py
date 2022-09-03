@@ -1,13 +1,14 @@
 from rental.models import Friend, Borrowed, Belonging
-from rest_framework.serializers import ModelSerializer, CurrentUserDefault, HiddenField
+from rest_framework.serializers import ModelSerializer, CurrentUserDefault, HiddenField, BooleanField
 
 
 class FriendSerializer(ModelSerializer):
     owner = HiddenField(default=CurrentUserDefault())
+    ann_overdue = BooleanField(source="_ann_overdue")
 
     class Meta:
         model = Friend
-        fields = ('id', 'name', "owner")
+        fields = ('id', 'name', "owner", "ann_overdue")
 
 
 class BelongingSerializer(ModelSerializer):

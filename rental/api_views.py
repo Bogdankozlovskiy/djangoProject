@@ -23,7 +23,7 @@ class BelongingViewset(viewsets.ModelViewSet):
 
 
 class BorrowedViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
-    queryset = Borrowed.objects.all()
+    queryset = Borrowed.objects.all().select_related("what", "to_who")
     serializer_class = BorrowedSerializer
     permission_classes = [IsOwner]
     filterset_class = BorrowedFilterSet

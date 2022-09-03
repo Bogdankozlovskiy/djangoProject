@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "rental",
     "djoser",
-    "django_filters"
+    "django_filters",
+    "dynamic_rest"
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
     'DEFAULT_PAGINATION_CLASS': 'djangoProject.pagination.HeaderLimitOffsetPagination',
     'PAGE_SIZE': 5,
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    "DEFAULT_RENDERER_CLASSES": (
+        "rest_framework.renderers.JSONRenderer",
+        "dynamic_rest.renderers.DynamicBrowsableAPIRenderer"
+    )
 }
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

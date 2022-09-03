@@ -1,8 +1,9 @@
 from rental.models import Friend, Borrowed, Belonging
 from rest_framework.serializers import ModelSerializer, CurrentUserDefault, HiddenField, BooleanField
+from rest_flex_fields import FlexFieldsModelSerializer
 
 
-class FriendSerializer(ModelSerializer):
+class FriendSerializer(FlexFieldsModelSerializer):
     owner = HiddenField(default=CurrentUserDefault())
     ann_overdue = BooleanField(source="_ann_overdue", read_only=True)
 
@@ -19,8 +20,12 @@ class BelongingSerializer(ModelSerializer):
         fields = ('id', 'name', "owner")
 
 
-class BorrowedSerializer(ModelSerializer):
+class BorrowedSerializer(FlexFieldsModelSerializer):
     owner = HiddenField(default=CurrentUserDefault())
+    expandable_fields = {
+        "what": (BelongingSerializer,),
+        "to_who": (BelongingSerializer,)
+    }
 
     class Meta:
         model = Borrowed

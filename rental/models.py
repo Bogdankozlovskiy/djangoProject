@@ -13,6 +13,7 @@ class OwnedModel(models.Model):
 
 class Friend(OwnedModel):
     name = models.CharField(max_length=100)
+    email = models.EmailField(null=True, blank=True)
     objects = FriendQuerySet.as_manager()
 
     @property

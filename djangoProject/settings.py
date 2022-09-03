@@ -138,3 +138,4 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5,
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

@@ -2,6 +2,7 @@ from django.core.mail import send_mail
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework_extensions.mixins import NestedViewSetMixin
 
 from rental.filters import BorrowedFilterSet
 from rental.models import Friend, Borrowed, Belonging
@@ -9,7 +10,7 @@ from rental.serializers import FriendSerializer, BelongingSerializer, BorrowedSe
 from rental.permissions import IsOwner
 
 
-class FriendViewset(viewsets.ModelViewSet):
+class FriendViewset(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Friend.objects.with_overdue()
     serializer_class = FriendSerializer
     permission_classes = [IsOwner]
@@ -21,7 +22,7 @@ class BelongingViewset(viewsets.ModelViewSet):
     permission_classes = [IsOwner]
 
 
-class BorrowedViewSet(viewsets.ModelViewSet):
+class BorrowedViewSet(NestedViewSetMixin, viewsets.ModelViewSet):
     queryset = Borrowed.objects.all()
     serializer_class = BorrowedSerializer
     permission_classes = [IsOwner]

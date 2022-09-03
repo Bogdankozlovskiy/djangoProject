@@ -11,6 +11,7 @@ djangorestframework = "3.13.1"
 djoser = "^2.1.0"
 pendulum = "^2.1.2"
 djangorestframework-link-header-pagination = "^0.1.1"
+django-filter = "^22.1"
 
 [tool.poetry.dev-dependencies]
 

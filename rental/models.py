@@ -24,9 +24,15 @@ class Friend(OwnedModel):
             when=pendulum.now().subtract(months=2)
         ).exists()
 
+    def __str__(self):
+        return self.name
+
 
 class Belonging(OwnedModel):
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
 
 class Borrowed(OwnedModel):

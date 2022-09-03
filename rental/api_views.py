@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+
+from rental.filters import BorrowedFilterSet
 from rental.models import Friend, Borrowed, Belonging
 from rental.serializers import FriendSerializer, BelongingSerializer, BorrowedSerializer
 from rental.permissions import IsOwner
@@ -20,3 +22,7 @@ class BorrowedViewSet(viewsets.ModelViewSet):
     queryset = Borrowed.objects.all()
     serializer_class = BorrowedSerializer
     permission_classes = [IsOwner]
+    filterset_class = BorrowedFilterSet
+    # filterset_fields = {
+    #     "returned": ["isnull", "gte", "lte", "exact"]
+    # }

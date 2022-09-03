@@ -1,6 +1,13 @@
 from rental.models import Friend, Borrowed, Belonging
 from rest_framework.serializers import ModelSerializer, CurrentUserDefault, HiddenField, BooleanField
 from rest_flex_fields import FlexFieldsModelSerializer
+from django.contrib.auth.models import User
+
+
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "username"]
 
 
 class FriendSerializer(FlexFieldsModelSerializer):
@@ -20,11 +27,21 @@ class BelongingSerializer(ModelSerializer):
         fields = ('id', 'name', "owner")
 
 
+class FriendPresentSerializer(FlexFieldsModelSerializer):
+    expandable_fields = {
+        "owner": UserSerializer
+    }
+
+    class Meta:
+        model = Friend
+        fields = ('id', 'name', "owner")
+
+
 class BorrowedSerializer(FlexFieldsModelSerializer):
     owner = HiddenField(default=CurrentUserDefault())
     expandable_fields = {
-        "what": (BelongingSerializer,),
-        "to_who": (BelongingSerializer,)
+        "what": BelongingSerializer,
+        "to_who": FriendPresentSerializer
     }
 
     class Meta:

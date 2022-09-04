@@ -37,12 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     "rest_framework",
     "rest_framework.authtoken",
-    "rental",
     "djoser",
     "django_filters",
-    "dynamic_rest"
+    "dynamic_rest",
+
+    "rental"
 ]
 
 MIDDLEWARE = [
@@ -130,17 +132,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "/api/v1"
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication'
-    ),
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    ],
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny'],
     'DEFAULT_PAGINATION_CLASS': 'djangoProject.pagination.HeaderLimitOffsetPagination',
     'PAGE_SIZE': 5,
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
-    "DEFAULT_RENDERER_CLASSES": (
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
         "dynamic_rest.renderers.DynamicBrowsableAPIRenderer"
-    )
+    ]
 }
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
